@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="https://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>white board</title>
+
+		<link rel="stylesheet" href="https://1pagemusic.com/literally/literallycanvas-x/_static/better.css" type="text/css" />
+		<link rel="stylesheet" href="https://1pagemusic.com/literally/literallycanvas-x/_static/pygments.css" type="text/css" />
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<script type="text/javascript">
+			var DOCUMENTATION_OPTIONS = {
+				URL_ROOT:    'https://1pagemusic.com/literally/literallycanvas-x',
+				VERSION:     '0.4.14',
+				COLLAPSE_INDEX: false,
+				FILE_SUFFIX: '.html',
+				HAS_SOURCE:  true
+			};
+		</script>
+		<script type="text/javascript" src="https://1pagemusic.com/literally/literallycanvas-x/_static/jquery.js"></script>
+		<script type="text/javascript" src="https://1pagemusic.com/literally/literallycanvas-x/_static/underscore.js"></script>
+		<script type="text/javascript" src="https://1pagemusic.com/literally/literallycanvas-x/_static/doctools.js"></script>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Finger+Paint" type="text/css" />
+		<link rel="stylesheet" href="https://1pagemusic.com/literally/literallycanvas-x/_static/style.css" type="text/css" />
+		<link rel="stylesheet" href="../_static/lib/css/literallycanvas.css" type="text/css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons.js" type="text/javascript"></script>
+		<script src="https://1pagemusic.com/literally/literallycanvas-x/_static/lib/js/fastclick.js" type="text/javascript"></script>
+		<script src="https://1pagemusic.com/literally/literallycanvas-x/_static/lib/js/literallycanvas.js" type="text/javascript"></script>
+		<script src="https://1pagemusic.com/literally/literallycanvas-x/_static/docs.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css">
+	</head>
+
+	<style>
+		canvas {
+			height:1200px;
+			background-color:transparent;
+		}
+		@media (max-width: 820px){
+			.document {
+				margin: 0!important;
+				width: 100%!important;
+			}
+		}
+		.toolbar-button {
+			z-index: 10;
+		}
+		.lc-pick-tool.toolbar-button.thin-button, .lc-undo, .lc-redo, .lc-zoom-out, .lc-zoom-in {
+			background-image: none!important;	
+			color: #352d52;
+		}
+		.lc-drawing.with-gui.hide-menu {
+			top:0;
+			left:0;
+		}
+	</style>
+
+	<body style="margin:0px;padding:0px;width:100%;height:1200px;overflow:hidden;">
+		<button ID="button1" style="display: inline-block;position: absolute;z-index: 99;background-color:orange;color:white;font-weight: 400;font-family: 'Source Sans Pro', sans-serif;border:0px solid white; padding:8px 8px;cursor:pointer;"><span style="font-size:12px;">&#8595;</span></button>
+		<div class="main-content">
+			<div class="document" style="width:100%;height:1200px;margin:0!important;padding:0px;background-color:transparent;">
+				<div class="documentwrapper" style="width:100%;height:1200px;margin:0px;padding:0px;background-color:transparent;">
+					<div class="bodywrapper" style="width:100%;height:1200px;margin:0px;padding:0px;background-color:transparent;">
+						<div class="body" style="width:100%;height:1200px;margin:0px;padding:0px;background-color:transparent;">
+							<div class="section" id="saving-to-local-storage" >
+								<span id="saving-and-loading" ></span>
+								<div class="literally localstorage" style="width:100%;height:1200px;margin:0px;padding:0px;background-color:transparent;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clearer"></div>
+		</div>
+
+		<script>
+			$(document).ready(function() {
+				var lc = LC.init(
+					document.getElementsByClassName('literally localstorage')[0]);
+					var localStorageKey = 'drawing'
+					if (localStorage.getItem(localStorageKey)) {
+						lc.loadSnapshot(JSON.parse(localStorage.getItem(localStorageKey)));
+					}
+
+					lc.on('drawingChange', function() {
+						localStorage.setItem(localStorageKey, JSON.stringify(lc.getSnapshot()));
+					});
+					
+					$( ".lc-color-pickers" ).parent().css( {"position":"relative"} );
+					
+					var i = 1;
+					$('.lc-pick-tool.toolbar-button.thin-button').each(function(){
+						console.log(i);
+						$(this).addClass('toolbar-button-custom-'+i);
+						i++;
+					});
+					$('.lc-picker').hide();
+					$('.lc-options.horz-toolbar').hide();
+					$('.lc-drawing.with-gui').addClass('hide-menu');
+					$( ".lc-options.horz-toolbar" ).append('<button ID="button2">Hide</button>');
+					$( "#button1" ).click(function() {
+					$('.lc-picker').show();
+					$('.lc-options.horz-toolbar').show();
+					$('.lc-drawing.with-gui').removeClass('hide-menu');
+					$(this).hide();
+				});
+				
+				$( "#button2" ).click(function() {
+					$('.lc-picker').hide();
+					$('.lc-options.horz-toolbar').hide();
+					$('.lc-drawing.with-gui').addClass('hide-menu');
+					$("#button1").show();
+				});
+			
+				$(".toolbar-button-custom-1").append('<i class="material-icons">create</i>');
+				$(".toolbar-button-custom-2").append('<i style="font-size:22px" class="fa fa-eraser"></i> ');
+				$(".toolbar-button-custom-3").append('<i class="material-icons">remove</i>');
+				$(".toolbar-button-custom-3 .material-icons").css({'transform' : 'rotate(135deg)'});
+				$(".toolbar-button-custom-4").append('<i class="material-icons">check_box_outline_blank</i>');
+				$(".toolbar-button-custom-5").append('<i class="material-icons">radio_button_unchecked</i>');
+				$(".toolbar-button-custom-6").append('<i class="material-icons">text_fields</i>');
+				$(".toolbar-button-custom-7").append('<i class="material-icons">signal_cellular_null</i>');
+				$(".toolbar-button-custom-8").append('<i class="material-icons">pan_tool</i>');
+				$(".toolbar-button-custom-9").append('<i class="material-icons">colorize</i>');
+
+				$(".lc-redo").append('<i class="material-icons">redo</i>');
+				$(".lc-undo").append('<i class="material-icons">undo</i>');
+				$(".lc-zoom-out").append('<i class="material-icons">zoom_out</i>');
+				$(".lc-zoom-in").append('<i class="material-icons">zoom_in</i>');
+
+			});
+			$.getQueryParameters = function(str) {
+			  return (str || document.location.search).replace(/(^\?)/,'').split("&")
+			  .reduce(
+			    function(all,part){
+			      part=part.split("=");
+			      all[part[0]]=part[1];
+			      return all;
+			    },
+			    {}
+			  );
+			};
+		</script>
+	</body>
+</html>

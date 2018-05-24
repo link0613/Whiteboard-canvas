@@ -1,0 +1,610 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Shapes &mdash; Literally Canvas v0.4.14 docs - HTML5 drawing board - MS Paint in your web browser</title>
+    
+    <link rel="stylesheet" href="../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.4.14',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Literally Canvas v0.4.14 docs - HTML5 drawing board - MS Paint in your web browser" href="../index.html" />
+    <link rel="up" title="API" href="index.html" />
+    <link rel="next" title="Creating Tools" href="tools.html" />
+    <link rel="prev" title="Events" href="events.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Finger+Paint" type="text/css" />
+      <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/lib/css/literallycanvas.css" type="text/css" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons.js" type="text/javascript"></script>
+    <script src="../_static/lib/js/fastclick.js" type="text/javascript"></script>
+    <script src="../_static/lib/js/literallycanvas.js" type="text/javascript"></script>
+    <script src="../_static/docs.js" type="text/javascript"></script>
+  </head>
+  <body>
+  <header id="pageheader"><h1><a href="../index.html">
+    <span class="title-word-1">Literally</span>
+    <span class="title-word-2">&ldquo;Canvas&rdquo;</span>
+  </a></h1></header>
+  <div class="related top">
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="events.html" title="Previous document">Events</a>
+        </li>
+        <li>
+          <a href="tools.html" title="Next document">Creating Tools</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <a href="index.html">API</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="shapes">
+<h1>Shapes<a class="headerlink" href="shapes.html#shapes" title="Permalink to this headline">¶</a></h1>
+<p>A drawing is composed of <em>shapes</em>. Shapes are added either by tools or by you,
+programmatically. All shapes are created through the
+<a class="reference internal" href="shapes.html#LC.createShape" title="LC.createShape"><tt class="xref js js-func docutils literal"><span class="pre">LC.createShape()</span></tt></a> function.</p>
+<p>A &#8220;color&#8221; is a CSS color string.</p>
+<div class="section" id="creating-shapes">
+<h2>Creating shapes<a class="headerlink" href="shapes.html#creating-shapes" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This section might be out of date. Read the source.</p>
+</div>
+<span class="target" id="shape-image"></span><dl class="function">
+<dt id="LC.createShape">
+<tt class="descclassname">LC.</tt><tt class="descname">createShape</tt><big>(</big><em>'Image'</em>, <em>{x</em>, <em>y</em>, <em>image}</em><big>)</big><a class="headerlink" href="shapes.html#LC.createShape" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x/y</strong> &#8211; Upper left corner position</li>
+<li><strong>scale</strong> &#8211; Scale of the image. Defaults to 1.0.</li>
+<li><strong>image</strong> &#8211; A DOM <cite>Image</cite> object</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you&#8217;d like to add an <tt class="docutils literal"><span class="pre">image.onload</span></tt> callback, <strong>do not assign it
+directly!</strong> This will break several things. Instead, use
+<a class="reference internal" href="util.html#LC.util.addImageOnload" title="LC.util.addImageOnload"><tt class="xref js js-func docutils literal"><span class="pre">LC.util.addImageOnload()</span></tt></a>.</p>
+</div>
+</dd></dl>
+
+<span class="target" id="shape-rectangle"></span><dl class="function">
+<dt>
+<tt class="descclassname">LC.</tt><tt class="descname">createShape</tt><big>(</big><em>'Rectangle'</em>, <em>{x</em>, <em>y</em>, <em>width</em>, <em>height</em>, <em>strokeWidth</em>, <em>strokeColor</em>, <em>fillColor}</em><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x/y</strong> &#8211; Upper left corner position</li>
+<li><strong>width/height</strong> &#8211; Size of the rectangle</li>
+<li><strong>strokeWidth</strong> &#8211; Width of the border</li>
+<li><strong>strokeColor</strong> &#8211; Color of the border</li>
+<li><strong>fillColor</strong> &#8211; Color of the middle</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="shape-line"></span><dl class="function">
+<dt>
+<tt class="descclassname">LC.</tt><tt class="descname">createShape</tt><big>(</big><em>'Line'</em>, <em>{x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em>, <em>strokeWidth</em>, <em>color</em>, <em>capStyle</em>, <em>endCapShapes}</em><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x1/y1</strong> &#8211; One end of the line</li>
+<li><strong>x2/y2</strong> &#8211; Other end of the line</li>
+<li><strong>strokeWidth</strong> &#8211; Width of the line</li>
+<li><strong>color</strong> &#8211; Color of the line</li>
+<li><strong>capStyle</strong> &#8211; Line cap style. Defaults to <tt class="docutils literal"><span class="pre">'round'</span></tt>. Read the HTML
+<tt class="docutils literal"><span class="pre">&lt;canvas&gt;</span></tt> docs for other valid values.</li>
+<li><strong>endCapShapes</strong> &#8211; Two-item list <tt class="docutils literal"><span class="pre">[srcShapeId,</span> <span class="pre">destShapeId]</span></tt>, where each
+value is <tt class="docutils literal"><span class="pre">'arrow'</span></tt> or <tt class="docutils literal"><span class="pre">null</span></tt>.</li>
+<li><strong>dash</strong> &#8211; Value to be passed to <tt class="docutils literal"><span class="pre">ctx.setLineDash()</span></tt> when this line is
+rendered.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="shape-text"></span><dl class="function">
+<dt>
+<tt class="descclassname">LC.</tt><tt class="descname">createShape</tt><big>(</big><em>'Text'</em>, <em>{x</em>, <em>y</em>, <em>text</em>, <em>color</em>, <em>font}</em><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x/y</strong> &#8211; Top left corner position</li>
+<li><strong>text</strong> &#8211; String to render</li>
+<li><strong>color</strong> &#8211; Text color</li>
+<li><strong>font</strong> &#8211; Font settings string. The format is apprimately
+<tt class="docutils literal"><span class="pre">&quot;[italic]</span> <span class="pre">[bold]</span> <span class="pre">fontSize</span> <span class="pre">fontName&quot;</span></tt>.</li>
+<li><strong>forcedWidth</strong> &#8211; If <tt class="docutils literal"><span class="pre">null</span></tt>, this shape&#8217;s width is equal to the rendered
+width of the text. Otherwise, the text is wrapped to
+this width.</li>
+<li><strong>forcedHeight</strong> &#8211; Height the user has specified for this text box. Ignored
+when rendering; only used to show the dragging box while
+resizing.</li>
+<li><strong>v</strong> &#8211; Version of the text shape API this shape was created with.
+Defaults to 1. Shapes from version 0 will be converted to version
+1.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="shape-linepath"></span><dl class="function">
+<dt>
+<tt class="descclassname">LC.</tt><tt class="descname">createShape</tt><big>(</big><em>'LinePath'</em>, <em>{points</em>, <em>smooth}</em><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>points</strong> &#8211; List of <a class="reference internal" href="shapes.html#shape-point"><em>Point</em></a> objects</li>
+<li><strong>smooth</strong> &#8211; If <tt class="docutils literal"><span class="pre">true</span></tt>, the given points will be smoothed to look more
+natural. Defaults to <tt class="docutils literal"><span class="pre">true</span></tt>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="shape-erasedlinepath"></span><dl class="function">
+<dt>
+<tt class="descclassname">LC.</tt><tt class="descname">createShape</tt><big>(</big><em>'ErasedLinePath'</em>, <em>{points</em>, <em>interpolate}</em><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>points</strong> &#8211; List of <a class="reference internal" href="shapes.html#shape-point"><em>Point</em></a> objects</li>
+<li><strong>smooth</strong> &#8211; If <tt class="docutils literal"><span class="pre">true</span></tt>, the given points will be smoothed to look more
+natural. Defaults to <tt class="docutils literal"><span class="pre">true</span></tt>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="shape-polygon"></span><dl class="function">
+<dt>
+<tt class="descclassname">LC.</tt><tt class="descname">createShape</tt><big>(</big><em>'Polygon'</em>, <em>{points</em>, <em>fillColor</em>, <em>strokeColor</em>, <em>strokeWidth</em>, <em>isClosed}</em><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>points</strong> &#8211; List of <a class="reference internal" href="shapes.html#shape-point"><em>Point</em></a> objects</li>
+<li><strong>fillColor</strong> &#8211; Fill color</li>
+<li><strong>strokeColor</strong> &#8211; Stroke color</li>
+<li><strong>strokeWidth</strong> &#8211; Width of the line around the edge.</li>
+<li><strong>isClosed</strong> &#8211; If <tt class="docutils literal"><span class="pre">true</span></tt>, draws a line between the first and last points.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="shape-ellipse"></span><dl class="function">
+<dt>
+<tt class="descclassname">LC.</tt><tt class="descname">createShape</tt><big>(</big><em>'Ellipse'</em>, <em>{x</em>, <em>y</em>, <em>width</em>, <em>height</em>, <em>strokeWidth</em>, <em>strokeColor</em>, <em>fillColor}</em><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>points</strong> &#8211; List of <a class="reference internal" href="shapes.html#shape-point"><em>Point</em></a> objects</li>
+<li><strong>fillColor</strong> &#8211; Fill color</li>
+<li><strong>strokeColor</strong> &#8211; Stroke color</li>
+<li><strong>strokeWidth</strong> &#8211; Width of the line around the edge.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="shape-point"></span><dl class="function">
+<dt>
+<tt class="descclassname">LC.</tt><tt class="descname">createShape</tt><big>(</big><em>'Point'</em>, <em>{x</em>, <em>y</em>, <em>size</em>, <em>color}</em><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x/y</strong> &#8211; Upper left corner position</li>
+<li><strong>size</strong> &#8211; Size of the rectangle</li>
+<li><strong>color</strong> &#8211; Color of the point</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference internal" href="shapes.html#shape-point"><em>Point</em></a> is primarily an internal data structure for
+<a class="reference internal" href="shapes.html#shape-linepath"><em>LinePath</em></a> and
+<a class="reference internal" href="shapes.html#shape-erasedlinepath"><em>ErasedLinePath</em></a>. It can&#8217;t currently be
+drawn.</p>
+</dd></dl>
+
+<span class="target" id="shape-selectionbox"></span><dl class="function">
+<dt>
+<tt class="descclassname">LC.</tt><tt class="descname">createShape</tt><big>(</big><em>'SelectionBox'</em>, <em>{shape</em>, <em>backgroundColor}</em><big>)</big></dt>
+<dd><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This shape is mostly for internal use.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>shape</strong> &#8211; Shape to draw the box around</li>
+<li><strong>backgroundColor</strong> &#8211; Color to render behind the selection box</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="shapes-and-json">
+<h2>Shapes and JSON<a class="headerlink" href="shapes.html#shapes-and-json" title="Permalink to this headline">¶</a></h2>
+<p>Each shape has a JSON representation so that you can save and load drawings.
+But just calling <tt class="xref js js-func docutils literal"><span class="pre">shape.toJSON()</span></tt> won&#8217;t give you a value that you can
+decode later; Literally Canvas wraps these values in containers with additional
+information. Instead, you can use these functions to save and load shapes:</p>
+<dl class="function">
+<dt id="LC.shapeToJSON">
+<tt class="descclassname">LC.</tt><tt class="descname">shapeToJSON</tt><big>(</big><em>shape</em><big>)</big><a class="headerlink" href="shapes.html#LC.shapeToJSON" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">JSON-encoded string representing <em>shape</em></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="LC.JSONToShape">
+<tt class="descclassname">LC.</tt><tt class="descname">JSONToShape</tt><big>(</big><em>jsonEncodedString</em><big>)</big><a class="headerlink" href="shapes.html#LC.JSONToShape" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Shape instance constructed from <em>jsonEncodedString</em></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>If you&#8217;ve saved a snapshot with <tt class="xref js js-func docutils literal"><span class="pre">LC.getSnapshot()</span></tt> or
+<tt class="xref js js-func docutils literal"><span class="pre">LC.getSnapshotJSON()</span></tt>, you can convert that to a list of deserialized
+shape objects with these functions:</p>
+<dl class="function">
+<dt id="LC.snapshotToShapes">
+<tt class="descclassname">LC.</tt><tt class="descname">snapshotToShapes</tt><big>(</big><em>snapshot</em><big>)</big><a class="headerlink" href="shapes.html#LC.snapshotToShapes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="LC.snapshotJSONToShapes">
+<tt class="descclassname">LC.</tt><tt class="descname">snapshotJSONToShapes</tt><big>(</big><em>snapshotJSON</em><big>)</big><a class="headerlink" href="shapes.html#LC.snapshotJSONToShapes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="rendering-shapes-outside-of-an-interactive-session">
+<h2>Rendering shapes outside of an interactive session<a class="headerlink" href="shapes.html#rendering-shapes-outside-of-an-interactive-session" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="LC.renderShapesToCanvas">
+<tt class="descclassname">LC.</tt><tt class="descname">renderShapesToCanvas</tt><big>(</big><em>shapes</em>, <em>bounds</em>, <em>scale=1</em>, <em>canvas=null</em><big>)</big><a class="headerlink" href="shapes.html#LC.renderShapesToCanvas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws the given shapes to the given canvas. Creates a new canvas if none is
+provided. Returns the canvas containing the rendered shapes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>shapes</strong> &#8211; List of shapes</li>
+<li><strong>bounds</strong> &#8211; A dict <tt class="docutils literal"><span class="pre">{x,</span> <span class="pre">y,</span> <span class="pre">width,</span> <span class="pre">height}</span></tt> specifying which part of the image to
+draw, in drawing coordinates (before scaling).</li>
+<li><strong>scale</strong> &#8211; Amount by which to scale the image output. Shapes will be rendered at
+full resolution. Defaults to <tt class="docutils literal"><span class="pre">1</span></tt>.</li>
+<li><strong>canvas</strong> &#8211; Canvas object on which to render the shapes. If <tt class="docutils literal"><span class="pre">null</span></tt>, a new canvas
+will be created with the size specified by <em>bounds</em>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This function can be used to render a snapshot to an image without
+instantiating a <a class="reference internal" href="LiterallyCanvas.html#LiterallyCanvas" title="LiterallyCanvas"><tt class="xref js js-class docutils literal"><span class="pre">LiterallyCanvas()</span></tt></a> object like this:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">snapshotJSON</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">[</span><span class="s1">&#39;saved-snapshot&#39;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nx">LC</span><span class="p">.</span><span class="nx">renderShapesToCanvas</span><span class="p">(</span>
+  <span class="nx">LC</span><span class="p">.</span><span class="nx">snapshotJSONToShapes</span><span class="p">(</span><span class="nx">snapshotJSON</span><span class="p">),</span>
+  <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span> <span class="mi">100</span><span class="p">});</span>
+<span class="c1">// Now you can pull out the image using a data URL:</span>
+<span class="kd">var</span> <span class="nx">dataURL</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">toDataURL</span><span class="p">();</span>
+<span class="c1">// Or pull out the bytes using the canvas API.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="LC.renderShapesToSVG">
+<tt class="descclassname">LC.</tt><tt class="descname">renderShapesToSVG</tt><big>(</big><em>shapes</em>, <em>bounds</em>, <em>backgroundColor</em><big>)</big><a class="headerlink" href="shapes.html#LC.renderShapesToSVG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the list of shapes to an SVG string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>shapes</strong> &#8211; List of shapes</li>
+<li><strong>bounds</strong> &#8211; A dict <tt class="docutils literal"><span class="pre">{x,</span> <span class="pre">y,</span> <span class="pre">width,</span> <span class="pre">height}</span></tt> specifying which part of the image to
+draw, in drawing coordinates.</li>
+<li><strong>backgroundColor</strong> &#8211; SVG color to draw behind the shapes.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This function can be used to render a snapshot to SVG without
+instantiating a <a class="reference internal" href="LiterallyCanvas.html#LiterallyCanvas" title="LiterallyCanvas"><tt class="xref js js-class docutils literal"><span class="pre">LiterallyCanvas()</span></tt></a> object like this:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">snapshotJSON</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">[</span><span class="s1">&#39;saved-snapshot&#39;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">svgString</span> <span class="o">=</span> <span class="nx">LC</span><span class="p">.</span><span class="nx">renderShapesToSVG</span><span class="p">(</span>
+  <span class="nx">LC</span><span class="p">.</span><span class="nx">snapshotJSONToShapes</span><span class="p">(</span><span class="nx">snapshotJSON</span><span class="p">),</span>
+  <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span> <span class="mi">100</span><span class="p">},</span>
+  <span class="s1">&#39;transparent&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="defining-shapes">
+<h2>Defining shapes<a class="headerlink" href="shapes.html#defining-shapes" title="Permalink to this headline">¶</a></h2>
+<p>If you want to make your own tool, or do some custom canvas rendering as the
+background of your drawing, you&#8217;ll need to define a shape. Then you can create
+it using the <a class="reference internal" href="shapes.html#LC.createShape" title="LC.createShape"><tt class="xref js js-func docutils literal"><span class="pre">LC.createShape()</span></tt></a> function.</p>
+<dl class="function">
+<dt id="LC.defineShape">
+<tt class="descclassname">LC.</tt><tt class="descname">defineShape</tt><big>(</big><em>name</em>, <em>methods</em><big>)</big><a class="headerlink" href="shapes.html#LC.defineShape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="LC.defineCanvasRenderer">
+<tt class="descclassname">LC.</tt><tt class="descname">defineCanvasRenderer</tt><big>(</big><em>name</em>, <em>drawShape</em><big>)</big><a class="headerlink" href="shapes.html#LC.defineCanvasRenderer" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; Name of the shape</li>
+<li><strong>drawShape</strong> &#8211; A function that takes <tt class="docutils literal"><span class="pre">(canvasContext,</span> <span class="pre">shape)</span></tt> and
+renders the shape to the context.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="LC.defineSVGRenderer">
+<tt class="descclassname">LC.</tt><tt class="descname">defineSVGRenderer</tt><big>(</big><em>name</em>, <em>shapeToSVGString</em><big>)</big><a class="headerlink" href="shapes.html#LC.defineSVGRenderer" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; Name of the shape</li>
+<li><strong>shapeToSVGString</strong> &#8211; A function that returns an SVG string representing the given shape.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">LC</span><span class="p">.</span><span class="nx">defineShape</span><span class="p">(</span><span class="s1">&#39;MyAwesomeShape&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="cm">/* initialize using the args passed to LC.createShape() */</span>
+  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">doStuff</span><span class="p">();</span>
+  <span class="p">},</span>
+
+  <span class="cm">/* you can add arbitrary methods */</span>
+  <span class="nx">doStuff</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{},</span>
+
+  <span class="cm">/* provide a bounding rectangle so getImage() can figure out the image</span>
+<span class="cm">     bounds (semi-optional) */</span>
+  <span class="nx">getBoundingRect</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span> <span class="mi">0</span><span class="p">};</span>
+  <span class="p">},</span>
+
+  <span class="cm">/* return a dictionary representation of the shape from which this instance</span>
+<span class="cm">     can be reconstructed */</span>
+  <span class="nx">toJSON</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span><span class="p">};</span>
+  <span class="p">},</span>
+
+  <span class="cm">/* reconstruct the MyAwesomeShape from the representation given by</span>
+<span class="cm">     toJSON */</span>
+  <span class="nx">fromJSON</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">LC</span><span class="p">.</span><span class="nx">createShape</span><span class="p">(</span><span class="s1">&#39;MyAwesomeShape&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="cm">/* Define canvas and SVG renderers */</span>
+
+<span class="nx">LC</span><span class="p">.</span><span class="nx">defineCanvasRenderer</span><span class="p">(</span><span class="s1">&#39;MyAwesomeShape&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">shape</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">ctx</span><span class="p">.</span><span class="nx">renderStuff</span><span class="p">();</span>
+<span class="p">})</span>
+
+<span class="c1">// You can skip this step if you never export to SVG</span>
+<span class="nx">LC</span><span class="p">.</span><span class="nx">defineSVGRenderer</span><span class="p">(</span><span class="s1">&#39;MyAwesomeShape&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">shape</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="s2">&quot;&lt;BestShapeEver /&gt;&quot;</span><span class="p">;</span>
+<span class="p">})</span>
+
+<span class="cm">/* you can use it as a background */</span>
+<span class="kd">var</span> <span class="nx">lc</span> <span class="o">=</span> <span class="nx">LC</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">backgroundShapes</span><span class="o">:</span> <span class="p">[</span><span class="nx">LC</span><span class="p">.</span><span class="nx">createShape</span><span class="p">(</span><span class="s1">&#39;MyAwesomeShape&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">0</span><span class="p">})]</span>
+<span class="p">});</span>
+
+<span class="cm">/* you can add it as part of the drawing */</span>
+<span class="nx">lc</span><span class="p">.</span><span class="nx">saveShape</span><span class="p">(</span><span class="nx">LC</span><span class="p">.</span><span class="nx">createShape</span><span class="p">(</span><span class="s1">&#39;MyAwesomeShape&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">100</span><span class="p">}))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-shapes-to-drawings-programmatically">
+<h2>Adding shapes to drawings programmatically<a class="headerlink" href="shapes.html#adding-shapes-to-drawings-programmatically" title="Permalink to this headline">¶</a></h2>
+<p>You can add a shape to the drawing with the
+<a class="reference internal" href="LiterallyCanvas.html#saveShape" title="saveShape"><tt class="xref js js-func docutils literal"><span class="pre">LiterallyCanvas.saveShape()</span></tt></a> method, like this:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="c1">// let&#39;s put a kitten in our drawing</span>
+<span class="kd">var</span> <span class="nx">lc</span> <span class="o">=</span> <span class="nx">LC</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">img</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Image</span><span class="p">();</span>
+<span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;http://placekitten.com/200/300&#39;</span><span class="p">;</span>
+<span class="nx">lc</span><span class="p">.</span><span class="nx">saveShape</span><span class="p">(</span><span class="nx">LC</span><span class="p">.</span><span class="nx">createShape</span><span class="p">(</span><span class="s1">&#39;Image&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nx">image</span><span class="o">:</span> <span class="nx">img</span><span class="p">}))</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="shapes.html#">Shapes</a><ul>
+<li><a class="reference internal" href="shapes.html#creating-shapes">Creating shapes</a></li>
+<li><a class="reference internal" href="shapes.html#shapes-and-json">Shapes and JSON</a></li>
+<li><a class="reference internal" href="shapes.html#rendering-shapes-outside-of-an-interactive-session">Rendering shapes outside of an interactive session</a></li>
+<li><a class="reference internal" href="shapes.html#defining-shapes">Defining shapes</a></li>
+<li><a class="reference internal" href="shapes.html#adding-shapes-to-drawings-programmatically">Adding shapes to drawings programmatically</a></li>
+</ul>
+</li>
+</ul>
+<p>
+	<a href="https://github.com/literallycanvas/literallycanvas/archive/v0.4.14.tar.gz">
+		Download v0.4.14
+	</a>
+</p>
+<p>
+  Visit <a href="https://groups.google.com/forum/#!forum/literallycanvas">
+  this page</a> or email
+  <a href="mailto:literallycanvas+subscribe@googlegroups.com">this address</a>
+  to join our mailing list.
+</p>
+
+<p>
+  Help us improve Literally Canvas on
+	<a href="http://github.com/literallycanvas/literallycanvas">GitHub</a>.
+</p>
+<form class="search" action="../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="related bottom">
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="events.html" title="Previous document">Events</a>
+        </li>
+        <li>
+          <a href="tools.html" title="Next document">Creating Tools</a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li>
+        <a href="index.html">API</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>
+  <footer id="pagefooter">&copy; 2012-2016 Literally Canvas contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a>
+      1.2b3
+        with the <a href="http://github.com/irskep/sphinx-better-theme">
+          better</a> theme.
+
+  </footer>
+
+  
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-36534121-1', 'literallycanvas.com');
+      ga('send', 'pageview');
+    </script>
+  
+  </body>
+</html>
