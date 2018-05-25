@@ -55,6 +55,50 @@
 			top:0;
 			left:0;
 		}
+		
+		.literally.toolbar-at-top .lc-options {
+			top: 470px !important;
+			border-bottom: none;
+		}
+
+		.literally .horz-toolbar {
+			background-color: transparent;
+		}
+
+		.literally .lc-options {
+			z-index: 100;
+			right: none;
+			left: 15px;
+		}
+
+		.lc-options.horz-toolbar {
+			display: flex;
+			width: 50px !important;
+			flex-direction: column;
+		}
+
+		.horz-toolbar select {
+			margin-bottom: 5px;
+		}
+
+ 		.lc-picker {
+			 opacity: 0.9;
+		}
+
+		.lc-picker>button {
+			width: 100%;
+			height: 50px;
+		}
+
+
+		.polygon-toolbar {
+			margin-top: 500px;
+		}
+		
+		.lc-drawing.with-gui {
+			top: 0 !important;
+			left: 0 !important;
+		}
 	</style>
 
 	<body style="margin:0px;padding:0px;width:100%;height:1200px;overflow:hidden;">
@@ -79,41 +123,42 @@
 			$(document).ready(function() {
 				var lc = LC.init(
 					document.getElementsByClassName('literally localstorage')[0]);
-					var localStorageKey = 'drawing'
-					if (localStorage.getItem(localStorageKey)) {
-						lc.loadSnapshot(JSON.parse(localStorage.getItem(localStorageKey)));
-					}
+				var localStorageKey = 'drawing'
+				if (localStorage.getItem(localStorageKey)) {
+					lc.loadSnapshot(JSON.parse(localStorage.getItem(localStorageKey)));
+				}
 
-					lc.on('drawingChange', function() {
-						localStorage.setItem(localStorageKey, JSON.stringify(lc.getSnapshot()));
-					});
-					
-					$( ".lc-color-pickers" ).parent().css( {"position":"relative"} );
-					
-					var i = 1;
-					$('.lc-pick-tool.toolbar-button.thin-button').each(function(){
-						console.log(i);
-						$(this).addClass('toolbar-button-custom-'+i);
-						i++;
-					});
-					$('.lc-picker').hide();
-					$('.lc-options.horz-toolbar').hide();
-					$('.lc-drawing.with-gui').addClass('hide-menu');
-					$( ".lc-options.horz-toolbar" ).append('<button ID="button2">Hide</button>');
-					$( "#button1" ).click(function() {
+				lc.on('drawingChange', function() {
+					localStorage.setItem(localStorageKey, JSON.stringify(lc.getSnapshot()));
+				});
+				
+				$( ".lc-color-pickers" ).parent().css( {"position":"relative"} );
+				
+				var i = 1;
+				$('.lc-pick-tool.toolbar-button.thin-button').each(function(){
+					console.log(i);
+					$(this).addClass('toolbar-button-custom-'+i);
+					i++;
+				});
+				$('.lc-picker').hide();
+				$('.lc-options.horz-toolbar').hide();
+				$('.lc-drawing.with-gui').addClass('hide-menu');
+				$( ".lc-picker-contents" ).before('<button ID="button2">Hide</button>');
+
+				$( "#button1" ).click(function() {
 					$('.lc-picker').show();
 					$('.lc-options.horz-toolbar').show();
 					$('.lc-drawing.with-gui').removeClass('hide-menu');
 					$(this).hide();
 				});
-				
+			
 				$( "#button2" ).click(function() {
 					$('.lc-picker').hide();
 					$('.lc-options.horz-toolbar').hide();
 					$('.lc-drawing.with-gui').addClass('hide-menu');
 					$("#button1").show();
 				});
-			
+		
 				$(".toolbar-button-custom-1").append('<i class="material-icons">create</i>');
 				$(".toolbar-button-custom-2").append('<i style="font-size:22px" class="fa fa-eraser"></i> ');
 				$(".toolbar-button-custom-3").append('<i class="material-icons">remove</i>');
