@@ -87,7 +87,10 @@
 
 		.lc-picker>button {
 			width: 100%;
-			height: 50px;
+			height: 30px;
+			margin-bottom: 20px;
+			border-style: none;
+			cursor: pointer;
 		}
 
 
@@ -99,10 +102,25 @@
 			top: 0 !important;
 			left: 0 !important;
 		}
+
+		.show-menu {
+			z-index: 10;
+			position: absolute;
+			width: 62px;
+			height: 30px;
+			top: 0px;
+			left: 0px;
+			opacity: 0;
+			cursor: pointer;
+		}
+		.show-menu:hover {
+			opacity: 1;
+			
+		}
 	</style>
 
 	<body style="margin:0px;padding:0px;width:100%;height:1200px;overflow:hidden;">
-		<button ID="button1" style="display: inline-block;position: absolute;z-index: 99;background-color:orange;color:white;font-weight: 400;font-family: 'Source Sans Pro', sans-serif;border:0px solid white; padding:8px 8px;cursor:pointer;"><span style="font-size:12px;">&#8595;</span></button>
+		<button ID="button1" class="show-menu"><i class="material-icons">visibility</i></button>
 		<div class="main-content">
 			<div class="document" style="width:100%;height:1200px;margin:0!important;padding:0px;background-color:transparent;">
 				<div class="documentwrapper" style="width:100%;height:1200px;margin:0px;padding:0px;background-color:transparent;">
@@ -122,7 +140,16 @@
 		<script>
 			$(document).ready(function() {
 				var lc = LC.init(
-					document.getElementsByClassName('literally localstorage')[0]);
+					document.getElementsByClassName('literally localstorage')[0],
+						{
+							secondaryColor: '#fff'
+
+						}
+					
+					);
+				
+	
+
 				var localStorageKey = 'drawing'
 				if (localStorage.getItem(localStorageKey)) {
 					lc.loadSnapshot(JSON.parse(localStorage.getItem(localStorageKey)));
@@ -143,13 +170,15 @@
 				$('.lc-picker').hide();
 				$('.lc-options.horz-toolbar').hide();
 				$('.lc-drawing.with-gui').addClass('hide-menu');
-				$( ".lc-picker-contents" ).before('<button ID="button2">Hide</button>');
+				$( ".lc-picker-contents" ).before('<button ID="button2"><i class="material-icons">visibility_off</i></button>');
 
 				$( "#button1" ).click(function() {
 					$('.lc-picker').show();
 					$('.lc-options.horz-toolbar').show();
 					$('.lc-drawing.with-gui').removeClass('hide-menu');
 					$(this).hide();
+ 
+				
 				});
 			
 				$( "#button2" ).click(function() {
@@ -174,6 +203,7 @@
 				$(".lc-undo").append('<i class="material-icons">undo</i>');
 				$(".lc-zoom-out").append('<i class="material-icons">zoom_out</i>');
 				$(".lc-zoom-in").append('<i class="material-icons">zoom_in</i>');
+
 
 			});
 			$.getQueryParameters = function(str) {
