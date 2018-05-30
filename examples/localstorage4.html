@@ -194,11 +194,13 @@
 		}
 		
 		.lc-picker {
-			overflow-y: auto !important; 
+			overflow-y: auto ; 
 			height: calc( 100vh - 50px ) !important;
 			position: absolute;
 			top: 50px !important;
-			overflow-x: hidden;
+		}
+		.unset-scroll {
+			overflow: unset !important;
 		}
 		
 		.ui-widget.ui-widget-content {
@@ -371,6 +373,14 @@
 			    {}
 			  );
 			};
+			document.addEventListener("click", function(e){
+				if ($(e.target).attr('class') == 'color-well-color'){
+					$('.lc-picker').addClass('unset-scroll');
+				} else {
+					$('.lc-picker').removeClass('unset-scroll');
+				}
+			});
+
 		</script>
 	</body>
 </html>
