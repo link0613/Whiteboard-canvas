@@ -31,6 +31,7 @@
 		<script src="https://1pagemusic.com/literally/literallycanvas-x/_static/lib/js/literallycanvas.js" type="text/javascript"></script>
 		<script src="https://1pagemusic.com/literally/literallycanvas-x/_static/docs.js" type="text/javascript"></script>
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css">
+		<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,600' rel='stylesheet' type='text/css'/>
 	</head>
 
 	<style>
@@ -46,6 +47,7 @@
 		}
 		.toolbar-button {
 			z-index: 10;
+			margin: 2px 16px !important;
 		}
 		.lc-pick-tool.toolbar-button.thin-button, .lc-undo, .lc-redo, .lc-zoom-out, .lc-zoom-in {
 			background-image: none!important;	
@@ -57,7 +59,7 @@
 		}
 		
 		.literally.toolbar-at-top .lc-options {
-			top: 470px !important;
+			top: 670px !important;
 			border-bottom: none;
 		}
 
@@ -80,7 +82,10 @@
 		.horz-toolbar select {
 			margin-bottom: 5px;
 		}
-
+		.literally .lc-picker {
+			 border-right: 1px dotted gray !important;
+			
+		}
  		.lc-picker {
 			 opacity: 0.9;
 		}
@@ -115,8 +120,62 @@
 		}
 		.show-menu:hover {
 			opacity: 1;
-			
 		}
+		label {
+			font-family: 'Source Sans Pro'
+		}
+
+		.lc-color-pickers {
+			position: absolute;
+			top: 280px;
+		}
+
+		.lc-undo-redo {
+			position: absolute;
+			top: 450px;
+		}
+ 
+		.literally .lc-picker .fat-button {
+			/* clear: both; */
+			width: 26px;
+			position: absolute;
+			top: 482px;
+			color: #352d52;
+		}
+
+		.literally .lc-options .lc-font-settings {
+			width: 50px;
+    	margin-left: -14px;
+			line-height: 30px;
+			text-align: center;
+		}
+		
+		.literally .lc-options .lc-font-settings select{
+			width: 50px;
+			margin-bottom: 15px;
+		}
+		.literally .horz-toolbar label {
+			line-height: 30px;
+			/* margin: 0 0.25em 0 0.25em; */
+			font-size: 12px;
+			float: left;
+		}
+
+		.v-slider {
+			
+			writing-mode: bt-lr;
+			-webkit-appearance: slider-vertical;
+			height: 100px;
+			width: 25px;
+		}
+		.v-slider-wrapper {
+			z-index: 500;
+
+			top: 584px;
+			left: 16px;			
+		}
+
+		
 	</style>
 
 	<body style="margin:0px;padding:0px;width:100%;height:1200px;overflow:hidden;">
@@ -143,12 +202,10 @@
 					document.getElementsByClassName('literally localstorage')[0],
 						{
 							secondaryColor: '#fff'
-
 						}
-					
 					);
 				
-	
+				
 
 				var localStorageKey = 'drawing'
 				if (localStorage.getItem(localStorageKey)) {
@@ -163,18 +220,38 @@
 				
 				var i = 1;
 				$('.lc-pick-tool.toolbar-button.thin-button').each(function(){
-					console.log(i);
 					$(this).addClass('toolbar-button-custom-'+i);
 					i++;
 				});
 				$('.lc-picker').hide();
 				$('.lc-options.horz-toolbar').hide();
+				
 				$('.lc-drawing.with-gui').addClass('hide-menu');
 				$( ".lc-picker-contents" ).before('<button ID="button2"><i class="material-icons">visibility_off</i></button>');
+ 
+				$('.thin-button').click(function(obj) {
+					setTimeout(() => {
+						var toolname = ($( ".thin-button" ).filter( ".selected" ).attr('title'))
+						switch(toolname) {
+							case 'Pencil':
+							case 'Eraser':
+							case 'Line':
+							case 'Rectangle':
+							case 'Ellipse':
+							case 'Polygon':
+
+									$('#borderWidth').show();
+									break;
+							default:
+								$('#borderWidth').hide();
+						}
+					}, 0);
+				});
 
 				$( "#button1" ).click(function() {
 					$('.lc-picker').show();
-					$('.lc-options.horz-toolbar').show();
+					//$('.lc-options.horz-toolbar').show();
+					$('.v-slider-wrapper').show();
 					$('.lc-drawing.with-gui').removeClass('hide-menu');
 					$(this).hide();
  
@@ -184,6 +261,7 @@
 				$( "#button2" ).click(function() {
 					$('.lc-picker').hide();
 					$('.lc-options.horz-toolbar').hide();
+					$('.v-slider-wrapper').hide();
 					$('.lc-drawing.with-gui').addClass('hide-menu');
 					$("#button1").show();
 				});
@@ -199,10 +277,21 @@
 				$(".toolbar-button-custom-8").append('<i class="material-icons">pan_tool</i>');
 				$(".toolbar-button-custom-9").append('<i class="material-icons">colorize</i>');
 
-				$(".lc-redo").append('<i class="material-icons">redo</i>');
+				$(".lc-redo").hide()
 				$(".lc-undo").append('<i class="material-icons">undo</i>');
-				$(".lc-zoom-out").append('<i class="material-icons">zoom_out</i>');
-				$(".lc-zoom-in").append('<i class="material-icons">zoom_in</i>');
+				$(".lc-zoom-out").hide()
+				$(".lc-zoom-in").hide()
+				$(".lc-clear").empty()
+				$(".lc-clear").append('<i class="material-icons">clear</i>');
+				$(".lc-clear").attr('title', 'Clear');
+				$(".horz-toolbar").after('<div class="v-slider-wrapper"><input type="range" min="1" max="50" value="3" class="v-slider" id="borderWidth"></div>')
+				$('.v-slider-wrapper').hide();
+				 
+				$('#borderWidth').change(function(){
+					var lineWidth = parseInt($(this).val())
+					lc.trigger('setStrokeWidth', lineWidth);
+				});						
+ 
 
 
 			});
