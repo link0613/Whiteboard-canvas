@@ -194,11 +194,26 @@
 		}
 		
 		.lc-picker {
-			overflow-y: auto ; 
+			overflow-y: scroll ;  
 			height: calc( 100vh - 50px ) !important;
 			position: absolute;
 			top: 50px !important;
+			overflow-x: hidden;
 		}
+		.lc-picker::-webkit-scrollbar {
+			width: 5px;
+			background-color: #F5F5F5;
+		}
+
+		.lc-picker::-webkit-scrollbar-thumb {
+			background-color: #c5c5c5;
+			border-radius: 2px;
+		}
+
+		.lc-picker::-webkit-scrollbar-thumb:hover {
+			background-color: orange;
+		}
+
 		.unset-scroll {
 			overflow: unset !important;
 		}
@@ -224,6 +239,30 @@
     	border-right: 1px dotted gray;
     	background: white;
 			height: 49px;
+		}
+
+		.lc-font-settings label div {
+			font-size: 10px !important;
+			height: 27px;
+		}
+
+		.lc-font-settings label {
+			margin-left: 13px !important;
+		}
+
+		.literally .lc-options .lc-font-settings select {
+			width: 50px;
+			margin-bottom: 5px;
+			margin-top: 5px;
+		}
+
+		.border-none {
+			border-style: none !important;
+		}
+
+		.scrollbar
+		{
+
 		}
 	</style>
 
@@ -272,7 +311,7 @@
 					$(this).addClass('toolbar-button-custom-'+i);
 					i++;
 				});
-				$('.lc-picker').hide();
+				//$('.lc-picker').hide();
 				
 				//$('.lc-options.horz-toolbar').hide();
 				$('.lc-picker').append("<div class='option-toolabar'></div>");
@@ -281,7 +320,10 @@
 				
 				$('.lc-drawing.with-gui').addClass('hide-menu');
 				$( ".lc-picker" ).before('<div class="button2-wrapper"><button ID="button2"><i class="material-icons">visibility_off</i></button></div>');
- 				$('.button2-wrapper').hide();
+ 				//$('.button2-wrapper').hide();
+				
+				$('#button1').hide();
+
 				$('.thin-button').click(function(obj) {
 					setTimeout(() => {
 						var toolname = ($( ".thin-button" ).filter( ".selected" ).attr('title'))
@@ -298,6 +340,15 @@
 							case 'Text':
 								$('.option-toolabar').show();
 								$('#borderWidth').hide();
+								setTimeout(() => {
+									var obj1 = $($(".lc-font-settings label input")[0]);
+									var obj2 = $($(".lc-font-settings label input")[1]);
+									$('.lc-font-settings label').empty();
+									$($('.lc-font-settings label')[0]).append('<div>italic</div>');
+									$($('.lc-font-settings label')[0]).append(obj1);
+									$($('.lc-font-settings label')[1]).append('<div>bold</div>');
+									$($('.lc-font-settings label')[1]).append(obj2);
+								}, 0);
 								break;
 							default:
 								$('#borderWidth').hide();
@@ -311,14 +362,14 @@
 					$('.button2-wrapper').show();
 					//$('.lc-options.horz-toolbar').show();
 					$('.v-slider-wrapper').show();
+					$('.literally').removeClass('border-none');
 					$('.lc-drawing.with-gui').removeClass('hide-menu');
 					$(this).hide();
- 
-				
-				});
+ 				});
 			
 				$( "#button2" ).click(function() {
 					$('.lc-picker').hide();
+					$('.literally').addClass('border-none');
 					$('.button2-wrapper').hide();
 					$('.lc-options.horz-toolbar').hide();
 					$('.v-slider-wrapper').hide();
@@ -345,7 +396,7 @@
 				$(".lc-clear").append('<i class="material-icons">clear</i>');
 				$(".lc-clear").attr('title', 'Clear');
 				$(".lc-picker").append('<div class="v-slider-wrapper"><div min="1" max="50" value="3" class="v-slider" id="borderWidth"></div></div>')
-				$('.v-slider-wrapper').hide();
+				//$('.v-slider-wrapper').hide();
 				$( "#borderWidth" ).slider({
 					orientation: "vertical",
 					range: "min",
@@ -357,10 +408,6 @@
 						$( "#amount" ).val( ui.value );
 					}
 				});
-					
- 
-
-
 			});
 			$.getQueryParameters = function(str) {
 			  return (str || document.location.search).replace(/(^\?)/,'').split("&")
@@ -380,6 +427,8 @@
 					$('.lc-picker').removeClass('unset-scroll');
 				}
 			});
+
+			console.log()
 
 		</script>
 	</body>
