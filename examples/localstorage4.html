@@ -57,6 +57,7 @@
 		.lc-pick-tool.toolbar-button.thin-button, .lc-undo, .lc-redo, .lc-zoom-out, .lc-zoom-in {
 			background-image: none!important;	
 			color: #352d52;
+			margin-top: 3px !important;
 		}
 		.lc-drawing.with-gui.hide-menu {
 			top:0;
@@ -91,13 +92,15 @@
 			 border-right: 1px dotted gray !important;
 			
 		}
- 		.lc-picker {
-			 opacity: 0.9;
+		.option-toolabar {
+			position: absolute;
+			top: 511px;
+			left: 14px;
 		}
 
-		.lc-picker>button {
-			width: 50px;
-			height: 50px;
+		#button2 {
+			width: 40px;
+			height: 40px;
 			border-radius: 50%;
 			background-color: #eee;
 			color: orange;
@@ -105,7 +108,7 @@
 			/* right: 5px; */
 			margin-bottom: 18px;
 			margin-top: 5px;
-			margin-left: 5px;
+			margin-left: 10px;
 			/* border-style: none; */
 			border: 1px solid orange;
 			cursor: pointer;
@@ -127,10 +130,10 @@
 		.show-menu {
 			z-index: 10;
 			position: absolute;
-			width: 50px;
-			height: 50px;
+			width: 40px;
+			height: 40px;
 			top: 6px;
-			left: 6px;
+			left: 11px;
 			opacity: 0.5;
 			cursor: pointer;
 			border-radius: 50%;
@@ -152,14 +155,14 @@
 
 		.lc-undo-redo {
 			position: absolute;
-			top: 450px;
+			top: 443px;
 		}
  
 		.literally .lc-picker .fat-button {
 			/* clear: both; */
 			width: 26px;
 			position: absolute;
-			top: 482px;
+			top: 473px;
 			color: #352d52;
 		}
 
@@ -184,31 +187,42 @@
 		.v-slider .ui-slider-range { background: orange; }
 		.v-slider-wrapper {
 			z-index: 540;
-
-			top: 600px;
-			left: 23px;			
-		}
-		@media (max-height: 800px){
-			.thin-button {
-    		margin: 1px !important;
-				float: left !important;
-			}
-			.lc-color-pickers { 
-				top: 155px;
-			}
-			.lc-undo-redo {
-				margin-left: 16px;
-				top: 335px;
-			}
-			.literally .lc-picker .fat-button {
-				margin-left: 16px;
-				top: 360px;
-			}
-			.v-slider-wrapper {
-				top: 480px;
-			}
+			position: absolute;
+			top: 512px;
+			left: 28px;			
+			margin-bottom: 10px;
 		}
 		
+		.lc-picker {
+			overflow-y: auto !important; 
+			height: calc( 100vh - 50px ) !important;
+			position: absolute;
+			top: 50px !important;
+			overflow-x: hidden;
+		}
+		
+		.ui-widget.ui-widget-content {
+    	border-style: none !important;
+    	width: 5px;
+    	background-color: #c5c5c5;
+		}	
+		.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+			/* border: 1px solid #c5c5c5; */
+			background: #f6f6f6;
+			font-weight: normal;
+			color: #454545;
+			width: 15px;
+			height: 15px;
+			border-radius: 50%;
+			background-color: orange;
+			border-style: none;
+		}
+		.button2-wrapper {
+			width: 61px;
+    	border-right: 1px dotted gray;
+    	background: white;
+			height: 49px;
+		}
 	</style>
 
 	<body style="margin:0px;padding:0px;width:100%;height:1200px;overflow:hidden;">
@@ -257,11 +271,15 @@
 					i++;
 				});
 				$('.lc-picker').hide();
-				$('.lc-options.horz-toolbar').hide();
+				
+				//$('.lc-options.horz-toolbar').hide();
+				$('.lc-picker').append("<div class='option-toolabar'></div>");
+				$('.option-toolabar').append($('.horz-toolbar'));
+				$('.option-toolabar').hide();
 				
 				$('.lc-drawing.with-gui').addClass('hide-menu');
-				$( ".lc-picker-contents" ).before('<button ID="button2"><i class="material-icons">visibility_off</i></button>');
- 
+				$( ".lc-picker" ).before('<div class="button2-wrapper"><button ID="button2"><i class="material-icons">visibility_off</i></button></div>');
+ 				$('.button2-wrapper').hide();
 				$('.thin-button').click(function(obj) {
 					setTimeout(() => {
 						var toolname = ($( ".thin-button" ).filter( ".selected" ).attr('title'))
@@ -272,17 +290,23 @@
 							case 'Rectangle':
 							case 'Ellipse':
 							case 'Polygon':
-
-									$('#borderWidth').show();
-									break;
+								$('.option-toolabar').hide();
+								$('#borderWidth').show();
+								break;
+							case 'Text':
+								$('.option-toolabar').show();
+								$('#borderWidth').hide();
+								break;
 							default:
 								$('#borderWidth').hide();
+								$('.option-toolabar').hide();
 						}
 					}, 0);
 				});
 
 				$( "#button1" ).click(function() {
 					$('.lc-picker').show();
+					$('.button2-wrapper').show();
 					//$('.lc-options.horz-toolbar').show();
 					$('.v-slider-wrapper').show();
 					$('.lc-drawing.with-gui').removeClass('hide-menu');
@@ -293,6 +317,7 @@
 			
 				$( "#button2" ).click(function() {
 					$('.lc-picker').hide();
+					$('.button2-wrapper').hide();
 					$('.lc-options.horz-toolbar').hide();
 					$('.v-slider-wrapper').hide();
 					$('.lc-drawing.with-gui').addClass('hide-menu');
@@ -317,14 +342,14 @@
 				$(".lc-clear").empty()
 				$(".lc-clear").append('<i class="material-icons">clear</i>');
 				$(".lc-clear").attr('title', 'Clear');
-				$(".horz-toolbar").after('<div class="v-slider-wrapper"><div min="1" max="50" value="3" class="v-slider" id="borderWidth"></div></div>')
+				$(".lc-picker").append('<div class="v-slider-wrapper"><div min="1" max="50" value="3" class="v-slider" id="borderWidth"></div></div>')
 				$('.v-slider-wrapper').hide();
 				$( "#borderWidth" ).slider({
 					orientation: "vertical",
 					range: "min",
 					min: 1,
-					max: 50,
-					value: 3,
+					max: 30,
+					value: 5,
 					slide: function( event, ui ) {
 						lc.trigger('setStrokeWidth', parseInt(ui.value));
 						$( "#amount" ).val( ui.value );
