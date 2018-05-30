@@ -19,6 +19,11 @@
 			};
 		</script>
 		<script type="text/javascript" src="https://1pagemusic.com/literally/literallycanvas-x/_static/jquery.js"></script>
+
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 		<script type="text/javascript" src="https://1pagemusic.com/literally/literallycanvas-x/_static/underscore.js"></script>
 		<script type="text/javascript" src="https://1pagemusic.com/literally/literallycanvas-x/_static/doctools.js"></script>
 		
@@ -91,13 +96,24 @@
 		}
 
 		.lc-picker>button {
-			width: 100%;
-			height: 30px;
-			margin-bottom: 20px;
-			border-style: none;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			background-color: #eee;
+			color: orange;
+			/* top: 5px; */
+			/* right: 5px; */
+			margin-bottom: 18px;
+			margin-top: 5px;
+			margin-left: 5px;
+			/* border-style: none; */
+			border: 1px solid orange;
 			cursor: pointer;
 		}
-
+		.lc-picker>button:hover {
+			background-color: orange;
+			color: white;
+		}
 
 		.polygon-toolbar {
 			margin-top: 500px;
@@ -111,12 +127,16 @@
 		.show-menu {
 			z-index: 10;
 			position: absolute;
-			width: 62px;
-			height: 30px;
-			top: 0px;
-			left: 0px;
-			opacity: 0;
+			width: 50px;
+			height: 50px;
+			top: 6px;
+			left: 6px;
+			opacity: 0.5;
 			cursor: pointer;
+			border-radius: 50%;
+			background-color: orange;
+			color: white;
+			border-style: none;
 		}
 		.show-menu:hover {
 			opacity: 1;
@@ -160,21 +180,34 @@
 			font-size: 12px;
 			float: left;
 		}
-
-		.v-slider {
-			
-			writing-mode: bt-lr;
-			-webkit-appearance: slider-vertical;
-			height: 100px;
-			width: 25px;
-		}
+ 
+		.v-slider .ui-slider-range { background: orange; }
 		.v-slider-wrapper {
-			z-index: 500;
+			z-index: 540;
 
-			top: 584px;
-			left: 16px;			
+			top: 600px;
+			left: 23px;			
 		}
-
+		@media (max-height: 800px){
+			.thin-button {
+    		margin: 1px !important;
+				float: left !important;
+			}
+			.lc-color-pickers { 
+				top: 155px;
+			}
+			.lc-undo-redo {
+				margin-left: 16px;
+				top: 335px;
+			}
+			.literally .lc-picker .fat-button {
+				margin-left: 16px;
+				top: 360px;
+			}
+			.v-slider-wrapper {
+				top: 480px;
+			}
+		}
 		
 	</style>
 
@@ -284,13 +317,20 @@
 				$(".lc-clear").empty()
 				$(".lc-clear").append('<i class="material-icons">clear</i>');
 				$(".lc-clear").attr('title', 'Clear');
-				$(".horz-toolbar").after('<div class="v-slider-wrapper"><input type="range" min="1" max="50" value="3" class="v-slider" id="borderWidth"></div>')
+				$(".horz-toolbar").after('<div class="v-slider-wrapper"><div min="1" max="50" value="3" class="v-slider" id="borderWidth"></div></div>')
 				$('.v-slider-wrapper').hide();
-				 
-				$('#borderWidth').change(function(){
-					var lineWidth = parseInt($(this).val())
-					lc.trigger('setStrokeWidth', lineWidth);
-				});						
+				$( "#borderWidth" ).slider({
+					orientation: "vertical",
+					range: "min",
+					min: 1,
+					max: 50,
+					value: 3,
+					slide: function( event, ui ) {
+						lc.trigger('setStrokeWidth', parseInt(ui.value));
+						$( "#amount" ).val( ui.value );
+					}
+				});
+					
  
 
 
