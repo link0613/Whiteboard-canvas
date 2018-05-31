@@ -92,10 +92,11 @@
 			 border-right: 1px dotted gray !important;
 			
 		}
-		.option-toolabar {
+		.option-toolbar {
 			position: absolute;
 			top: 511px;
 			left: 14px;
+     	height: 150px;
 		}
 
 		#button2 {
@@ -201,7 +202,7 @@
 			overflow-x: hidden;
 		}
 		.lc-picker::-webkit-scrollbar {
-			width: 5px;
+			width: 4px;
 			background-color: #F5F5F5;
 		}
 
@@ -254,16 +255,35 @@
 			width: 50px;
 			margin-bottom: 5px;
 			margin-top: 5px;
+			-webkit-appearance: none;
+			border-radius: 3px;
 		}
 
 		.border-none {
 			border-style: none !important;
 		}
 
-		.scrollbar
-		{
+		.font-arrow {
+			width: 13px;
+			height: 13px !important;
+			position: absolute;
+			background: #aaa;
+			right: 11px;
+			border-radius: 0 1px 1px 0;			
 
 		}
+		.lc-font-settings .material-icons {
+			font-size: 12px !important;
+			color: white !important;			
+		}
+		.select1 {
+			top: 6px;
+		}
+		.select2 {
+			top: 31px;
+		}
+
+ 
 	</style>
 
 	<body style="margin:0px;padding:0px;width:100%;height:1200px;overflow:hidden;">
@@ -314,9 +334,9 @@
 				//$('.lc-picker').hide();
 				
 				//$('.lc-options.horz-toolbar').hide();
-				$('.lc-picker').append("<div class='option-toolabar'></div>");
-				$('.option-toolabar').append($('.horz-toolbar'));
-				$('.option-toolabar').hide();
+				$('.lc-picker').append("<div class='option-toolbar'></div>");
+				$('.option-toolbar').append($('.horz-toolbar'));
+				$('.option-toolbar').hide();
 				
 				$('.lc-drawing.with-gui').addClass('hide-menu');
 				$( ".lc-picker" ).before('<div class="button2-wrapper"><button ID="button2"><i class="material-icons">visibility_off</i></button></div>');
@@ -334,11 +354,11 @@
 							case 'Rectangle':
 							case 'Ellipse':
 							case 'Polygon':
-								$('.option-toolabar').hide();
+								$('.option-toolbar').hide();
 								$('#borderWidth').show();
 								break;
 							case 'Text':
-								$('.option-toolabar').show();
+								$('.option-toolbar').show();
 								$('#borderWidth').hide();
 								setTimeout(() => {
 									var obj1 = $($(".lc-font-settings label input")[0]);
@@ -348,11 +368,13 @@
 									$($('.lc-font-settings label')[0]).append(obj1);
 									$($('.lc-font-settings label')[1]).append('<div>bold</div>');
 									$($('.lc-font-settings label')[1]).append(obj2);
+									$($('.lc-font-settings')).append('<div class="font-arrow select1"><i class="material-icons">unfold_more</i></div><div class="font-arrow select2"><i class="material-icons">unfold_more</i></div>')
 								}, 0);
+
 								break;
 							default:
 								$('#borderWidth').hide();
-								$('.option-toolabar').hide();
+								$('.option-toolbar').hide();
 						}
 					}, 0);
 				});
@@ -362,6 +384,7 @@
 					$('.button2-wrapper').show();
 					//$('.lc-options.horz-toolbar').show();
 					$('.v-slider-wrapper').show();
+					$('.option-toolbar').show();
 					$('.literally').removeClass('border-none');
 					$('.lc-drawing.with-gui').removeClass('hide-menu');
 					$(this).hide();
@@ -371,7 +394,8 @@
 					$('.lc-picker').hide();
 					$('.literally').addClass('border-none');
 					$('.button2-wrapper').hide();
-					$('.lc-options.horz-toolbar').hide();
+					//$('.lc-options.horz-toolbar').hide();
+					$('.option-toolbar').hide();
 					$('.v-slider-wrapper').hide();
 					$('.lc-drawing.with-gui').addClass('hide-menu');
 					$("#button1").show();
@@ -425,11 +449,16 @@
 					$('.lc-picker').addClass('unset-scroll');
 				} else {
 					$('.lc-picker').removeClass('unset-scroll');
+					if ($(e.path[1]).attr('class') == 'font-arrow select2') {
+						var element = $('.lc-font-settings select')[0],	worked = false;
+						var e = document.createEvent("MouseEvents");
+						e.initMouseEvent("click", true, true, window, 0, 0, 0, 5, 5, false, false, false, false, 0, null);
+						worked = element.dispatchEvent(e);
+					}
 				}
 			});
 
-			console.log()
-
+ 
 		</script>
 	</body>
 </html>
