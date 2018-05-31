@@ -314,6 +314,7 @@
 					);
 				
 				
+				var selectedText = false;
 
 				var localStorageKey = 'drawing'
 				if (localStorage.getItem(localStorageKey)) {
@@ -347,6 +348,7 @@
 				$('.thin-button').click(function(obj) {
 					setTimeout(() => {
 						var toolname = ($( ".thin-button" ).filter( ".selected" ).attr('title'))
+						selectedText = false;
 						switch(toolname) {
 							case 'Pencil':
 							case 'Eraser':
@@ -370,6 +372,7 @@
 									$($('.lc-font-settings label')[1]).append(obj2);
 									$($('.lc-font-settings')).append('<div class="font-arrow select1"><i class="material-icons">unfold_more</i></div><div class="font-arrow select2"><i class="material-icons">unfold_more</i></div>')
 								}, 0);
+								selectedText = true;
 
 								break;
 							default:
@@ -384,7 +387,7 @@
 					$('.button2-wrapper').show();
 					//$('.lc-options.horz-toolbar').show();
 					$('.v-slider-wrapper').show();
-					$('.option-toolbar').show();
+					if (selectedText) $('.option-toolbar').show();
 					$('.literally').removeClass('border-none');
 					$('.lc-drawing.with-gui').removeClass('hide-menu');
 					$(this).hide();
